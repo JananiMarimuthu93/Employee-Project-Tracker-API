@@ -26,35 +26,6 @@ It follows a **Repository Pattern** and supports **CRUD operations** for both Em
 
 ---
 
-## 📂 Project Structure
-Employee_Project_Tracker_API/
-│── Controllers/
-│ ├── EmployeeController.cs
-│ ├── ProjectController.cs
-│
-│── Interface/
-│ ├── IEmployeeRepository.cs
-│ ├── IProjectRepository.cs
-│
-│── Repository/
-│ ├── EmployeeRepository.cs
-│ ├── ProjectRepository.cs
-│
-│── Services/
-│ ├── EmployeeService.cs
-│ ├── ProjectService.cs
-│
-│── Models/
-│ ├── Employee.cs
-│ ├── Project.cs
-│
-│── Program.cs
-│── appsettings.json
-│── README.md
-
-
----
-
 ## 🔌 API Endpoints
 
 ### Employee Endpoints
