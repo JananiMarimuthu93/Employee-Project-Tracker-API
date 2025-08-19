@@ -1,10 +1,12 @@
 ﻿using Employee_Project_Tracker_API.Models;
 using Employee_Project_Tracker_API.ServiceRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Employee_Project_Tracker_API.Controllers
 {
     [Route("api/[controller]")]
+    
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -17,7 +19,8 @@ namespace Employee_Project_Tracker_API.Controllers
 
             // GET: api/employee
             [HttpGet]
-            public async Task<IActionResult> GetAllEmployees()
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> GetAllEmployees()
             {
                 var employees = await _employeeService.GetAllEmployees();
                 return Ok(employees);
@@ -25,17 +28,19 @@ namespace Employee_Project_Tracker_API.Controllers
 
             // GET: api/employee/{id}
             [HttpGet("{id}")]
-            public async Task<IActionResult> GetEmployeeById(int id)
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> GetEmployeeById(int id)
             {
-                var employee = await _employeeService.GetEmployeeByID(id);
-                if (employee == null)
-                    return NotFound($"Employee with ID {id} not found.");
-                return Ok(employee);
-            }
+                    var employee = await _employeeService.GetEmployeeByID(id);
+                    if (employee == null)
+                        return NotFound($"Employee with ID {id} not found.");
+                    return Ok(employee);
+                }
 
             // POST: api/employee
             [HttpPost]
-            public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
             {
                 if (employee == null)
                     return BadRequest("Invalid employee data.");
@@ -46,7 +51,8 @@ namespace Employee_Project_Tracker_API.Controllers
 
             // PUT: api/employee/{id}
             [HttpPut("{id}")]
-            public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee employee)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee employee)
             {
                 if (employee == null || id != employee.EmployeeId)
                     return BadRequest("Employee data mismatch.");
@@ -60,7 +66,8 @@ namespace Employee_Project_Tracker_API.Controllers
 
             // DELETE: api/employee/{id}
             [HttpDelete("{id}")]
-            public async Task<IActionResult> DeleteEmployee(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteEmployee(int id)
             {
                 var deleted = await _employeeService.Delete(id);
                 if (!deleted)

@@ -10,6 +10,7 @@ namespace Employee_Project_Tracker_API.Models
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<User> User { get; set; }
 
         public EmployeeProjectTrackerContext()
         {
